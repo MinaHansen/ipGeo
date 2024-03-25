@@ -1,8 +1,10 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"os"
+	"path/filepath"
 )
 
 func main() {
@@ -11,7 +13,12 @@ func main() {
 		os.Exit(-1)
 	}
 
-	ipGeoApi, err := NewGeoApi("apikey.txt")
+	ex, err := os.Executable()
+	if err != nil {
+		log.Fatal(err)
+	}
+	exPath := filepath.Dir(ex)
+	ipGeoApi, err := NewGeoApi(fmt.Sprintf("%s/apikey.txt", exPath))
 	if err != nil {
 		log.Fatal(err)
 	}
